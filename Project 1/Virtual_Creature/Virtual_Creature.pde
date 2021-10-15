@@ -43,7 +43,7 @@ climbx += speedX;
     
     speedX *= -1;
   }
-  image(img1,climbx,climby);
+  image(img1,climbx,climby); //position of image
   
   
   
