@@ -13,12 +13,18 @@ void setup()
   img = loadImage("winter.jpeg");
   img.resize(1280,800);
   
- 
- // gif = new Gif (this,"walking.gif");
+ frameRate(13);
+  gif = new Gif (this,"walking.gif");
+  gif.loop();
+  gif.play();
+  
   img2 = loadImage("snowfall.png");
 }
 
 void draw(){
 
 background(img);
+
+image(gif,10,455,200,270);
+
 }
