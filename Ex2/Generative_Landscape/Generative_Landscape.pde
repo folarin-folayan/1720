@@ -4,6 +4,7 @@ Gif gif;
 PImage img, img2;
 float walkingx;
 float walkingy;
+float speedX = 2;
 float snowfallx;
 float snowfally;
 
@@ -19,12 +20,24 @@ void setup()
   gif.play();
   
   img2 = loadImage("snowfall.png");
+  
+  walkingx = 10;
+  walkingy = 455;
 }
 
 void draw(){
 
 background(img);
 
-image(gif,10,455,200,270);
+walkingx += speedX;
+if (walkingx < 1000) {
+speedX *= 1;
+}
+
+else if (walkingx <= 9){
+speedX *= -1;
+}
+
+image(gif,walkingx,walkingy,200,270);
 
 }
