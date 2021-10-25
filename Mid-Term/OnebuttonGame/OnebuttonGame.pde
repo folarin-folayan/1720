@@ -10,7 +10,7 @@ String gameState;
 
 float x, x2, kirbyx, kirbyy, jump, g, jumpspeed, floory;
 
-int[] blockx;
+int[] blockx, blocky;
 
 void setup()
 {
@@ -50,10 +50,12 @@ void setup()
   floory=526;
   
   blockx = new int [5];
+  blocky = new int [blockx.length];
   
   for (int i = 0; i < blockx.length; i++)
   {
     blockx[i] = width + 600*i;
+    blocky[i] = height + 600*i;
   }
 }
 
@@ -72,7 +74,7 @@ void draw()
    image(gif, 250, 400, width/2, height/2);
    
    
-   if (mousePressed == true) {
+   if (mousePressed == true) {//to start the game
      gameState = "PLAY";
    }
  }
@@ -80,27 +82,30 @@ void draw()
  void loseGame() {
  
    image(gif2, CENTER, CENTER, width, height);
-   text("click to play again!", CENTER, CENTER);
+   text("click to play again!", 400, 300);
    
+   if (mousePressed == true) {//to start the game
+     gameState = "PLAY";
+   }
  }
  
  void playGame() {
   
   background(img1);
   
+  //display two images back to back
   image(img1, x, x2);
   image(img1, x + img1.width, x2);
   x = x -4;
   
-  if (x < - img1.width)
+  if (x < - img1.width) //loop scroll
   {
   x = 0;
   }
   
+  blocks();
   
   kirby();
-  
-  blocks();
  }
  
  void kirby()
@@ -111,8 +116,8 @@ void draw()
   kirbyy = kirbyy+jumpspeed;
   jumpspeed =jumpspeed + g;
   
-  if (kirbyy+1>floory){
-  jumpspeed=0;
+  if (kirbyy>floory){
+  jumpspeed=3;
   kirbyy=floory - 1;
   }
   if (mousePressed && kirbyy+1==floory)
@@ -123,17 +128,17 @@ void draw()
  
  void blocks()
  {
-  for (int i = 0; i < blockx.length; i++)
+  for (int i = 0; i < blockx.length; i++)//loop to display blocks
   {
     image(img2,blockx[i],610);
-    blockx[i] -= 3;
+    blockx[i] -= 6;
     if(blockx[i] < -200)
     {
       blockx[i] = width;
     }
-    if(kirbyx > (blockx[i] ))
+    if(kirbyx > blockx[i] && kirbyx < blockx[i] )//collision detection - broken :(
     {
-      gameState = "LOSE";
+    gameState="LOSE";
     }
   }
  }
